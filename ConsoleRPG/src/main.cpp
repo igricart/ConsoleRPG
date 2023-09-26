@@ -1,16 +1,16 @@
-#include"Game.h"
+#include "Game.h"
 
 int main()
 {
-	srand(time(NULL));
+  srand(time(NULL));
 
-	Game game;
-	game.initGame();
+  Game game;
+  game.initGame();
 
-	while (game.getPlaying())
-	{
-		game.mainMenu();
-	}
+  while (game.getPlaying())
+  {
+    game.mainMenu();
+  }
 
-	return 0;
+  return 0;
 }
