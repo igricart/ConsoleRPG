@@ -37,7 +37,7 @@ void Game::mainMenu()
 {
 	cout << "ENTER to continue..." << "\n";
 	cin.get();
-	system("CLS");
+	system("clear");
 
 	if (this->characters[activeCharacter].isAlive())
 	{
@@ -235,7 +235,7 @@ void Game::characterMenu()
 {
 	do
 	{
-		system("CLS");
+		system("clear");
 		cout << gui::menu_title("CHARACTER MENU");
 
 		cout << gui::menu_divider();
