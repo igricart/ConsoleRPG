@@ -16,12 +16,12 @@ class Armor : public Item
 private:
   int type;
   std::string typeStr;
-  int defence;
+  int defense;
 
 public:
   Armor();
   Armor(int level, int rarity);
-  Armor(int type, int defence, std::string name, int level, int buyValue, int sellValue, int rarity);
+  Armor(int type, int defense, std::string name, int level, int buyValue, int sellValue, int rarity);
   virtual ~Armor();
 
   // Pure virtual
@@ -32,9 +32,9 @@ public:
   std::string toStringSave() const;
 
   // Accessors
-  inline int getDefence() const
+  inline int getDefense() const
   {
-    return this->defence;
+    return this->defense;
   }
   inline int getType() const
   {

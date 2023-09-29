@@ -363,7 +363,7 @@ void Event::enemyEncouter(Character& character, dArr<Enemy>& enemies)
             cout << i << ": "
                  << "Level: " << enemies[i].getLevel() << " - "
                  << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
-                 << "Defence: " << enemies[i].getDefence() << " - "
+                 << "Defense: " << enemies[i].getDefense() << " - "
                  << "Accuracy: " << enemies[i].getAccuracy() << " - "
                  << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << "\n";
           }
@@ -390,8 +390,8 @@ void Event::enemyEncouter(Character& character, dArr<Enemy>& enemies)
           cout << "\n";
 
           // Attack roll
-          combatTotal = enemies[choice].getDefence() + character.getAccuracy();
-          enemyTotal = enemies[choice].getDefence() / (double)combatTotal * 100;
+          combatTotal = enemies[choice].getDefense() + character.getAccuracy();
+          enemyTotal = enemies[choice].getDefense() / (double)combatTotal * 100;
           playerTotal = character.getAccuracy() / (double)combatTotal * 100;
           combatRollPlayer = rand() % playerTotal + 1;
           combatRollEnemy = rand() % enemyTotal + 1;
@@ -523,9 +523,9 @@ void Event::enemyEncouter(Character& character, dArr<Enemy>& enemies)
         cout << "Enemy: " << i << "\n\n";
 
         // Attack roll
-        combatTotal = enemies[i].getAccuracy() + (character.getDefence() + character.getAddedDefence());
+        combatTotal = enemies[i].getAccuracy() + (character.getDefense() + character.getAddedDefense());
         enemyTotal = enemies[i].getAccuracy() / (double)combatTotal * 100;
-        playerTotal = (character.getDefence() + character.getAddedDefence()) / (double)combatTotal * 100;
+        playerTotal = (character.getDefense() + character.getAddedDefense()) / (double)combatTotal * 100;
         combatRollPlayer = rand() % playerTotal + 1;
         combatRollEnemy = rand() % enemyTotal + 1;
 
@@ -739,7 +739,7 @@ void Event::bossEncouter(Character& character, Boss& boss)
   //"
   //<< 					"HP: " << enemies[i].getHp() << "/" <<
   // enemies[i].getHpMax() << " - " <<
-  // "Defence: " << enemies[i].getDefence() << " - "
+  // "Defense: " << enemies[i].getDefense() << " - "
   //<< 					"Accuracy: " << enemies[i].getAccuracy()
   //<< " - " << "Damage: " << enemies[i].getDamageMin() << " - " <<
   // enemies[i].getDamageMax() <<
@@ -767,9 +767,9 @@ void Event::bossEncouter(Character& character, Boss& boss)
   //			cout << "\n";
 
   //			//Attack roll
-  //			combatTotal = enemies[choice].getDefence() +
+  //			combatTotal = enemies[choice].getDefense() +
   // character.getAccuracy(); 			enemyTotal =
-  // enemies[choice].getDefence()
+  // enemies[choice].getDefense()
   // /
   //(double)combatTotal * 100; 			playerTotal =
   // character.getAccuracy()
@@ -915,12 +915,12 @@ void Event::bossEncouter(Character& character, Boss& boss)
 
   //			//Attack roll
   //			combatTotal = enemies[i].getAccuracy() +
-  //(character.getDefence()
-  //+ character.getAddedDefence()); 			enemyTotal =
+  //(character.getDefense()
+  //+ character.getAddedDefense()); 			enemyTotal =
   // enemies[i].getAccuracy() /
   //(double)combatTotal * 100; 			playerTotal =
-  //(character.getDefence()
-  //+ character.getAddedDefence()) / (double)combatTotal * 100;
+  //(character.getDefense()
+  //+ character.getAddedDefense()) / (double)combatTotal * 100;
   // combatRollPlayer = rand() % playerTotal + 1;
   // combatRollEnemy = rand() % enemyTotal + 1;
 

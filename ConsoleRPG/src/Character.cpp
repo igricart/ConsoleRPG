@@ -22,7 +22,7 @@ Character::Character()
   this->staminaMax = 0;
   this->damageMin = 0;
   this->damageMax = 0;
-  this->defence = 0;
+  this->defense = 0;
   this->accuracy = 0;
   this->luck = 0;
 
@@ -52,7 +52,7 @@ Character::Character(string name, int distanceTravelled, int gold, int level, in
   this->staminaMax = 0;
   this->damageMin = 0;
   this->damageMax = 0;
-  this->defence = 0;
+  this->defense = 0;
   this->accuracy = 0;
   this->luck = 0;
 
@@ -106,7 +106,7 @@ void Character::printStats() const
   cout << "= Damage: " << this->damageMin << "( +" << this->weapon.getDamageMin() << ")"
        << " - " << this->damageMax << "( +" << this->weapon.getDamageMax() << ")"
        << "\n";
-  cout << "= Defence: " << this->defence << "( +" << std::to_string(this->getAddedDefence()) << ")"
+  cout << "= Defense: " << this->defense << "( +" << std::to_string(this->getAddedDefense()) << ")"
        << "\n";
   cout << "= Accuracy: " << this->accuracy << "\n";
   cout << "= Luck: " << this->luck << "\n";
@@ -117,13 +117,13 @@ void Character::printStats() const
   cout << "= Weapon: " << this->weapon.getName() << " Lvl: " << this->weapon.getLevel()
        << " Dam: " << this->weapon.getDamageMin() << " - " << this->weapon.getDamageMax() << "\n";
   cout << "= Armor Head: " << this->armor_head.getName() << " Lvl: " << this->armor_head.getLevel()
-       << " Def: " << this->armor_head.getDefence() << "\n";
+       << " Def: " << this->armor_head.getDefense() << "\n";
   cout << "= Armor Chest: " << this->armor_chest.getName() << " Lvl: " << this->armor_chest.getLevel()
-       << " Def: " << this->armor_chest.getDefence() << "\n";
+       << " Def: " << this->armor_chest.getDefense() << "\n";
   cout << "= Armor Arms: " << this->armor_arms.getName() << " Lvl: " << this->armor_arms.getLevel()
-       << " Def: " << this->armor_arms.getDefence() << "\n";
+       << " Def: " << this->armor_arms.getDefense() << "\n";
   cout << "= Armor Legs: " << this->armor_legs.getName() << " Lvl: " << this->armor_legs.getLevel()
-       << " Def: " << this->armor_legs.getDefence() << "\n"
+       << " Def: " << this->armor_legs.getDefense() << "\n"
        << "\n";
 }
 
@@ -208,7 +208,7 @@ void Character::updateStats()
   this->stamina = this->staminaMax;
   this->damageMin = this->strength;
   this->damageMax = this->strength + 2;
-  this->defence = this->dexterity + (this->intelligence / 2);
+  this->defense = this->dexterity + (this->intelligence / 2);
   this->accuracy = (this->dexterity / 2) + intelligence;
   this->luck = this->intelligence;
 
