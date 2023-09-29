@@ -38,6 +38,7 @@ private:
   int damageMax;
   int defense;
   int accuracy;
+  // TODO: Add luck to the system
   int luck;
 
   int statPoints;
@@ -46,7 +47,7 @@ public:
   Character();
   Character(string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality, int dexterity,
             int intelligence, int hp, int stamina, int statPoints);
-  virtual ~Character();
+  ~Character();
 
   // Functions
   void initialize(const std::string name);

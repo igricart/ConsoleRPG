@@ -144,12 +144,12 @@ string Character::getInvAsString(bool shop)
   {
     if (shop)
     {
-      inv += to_string(i) + ": " + this->inventory[i].toString() + "\n" +
-             " - Sell value: " + std::to_string(this->inventory[i].getSellValue()) + "\n";
+      inv += to_string(i) + ": " + this->inventory[i]->toString() + "\n" +
+             " - Sell value: " + std::to_string(this->inventory[i]->getSellValue()) + "\n";
     }
     else
     {
-      inv += to_string(i) + ": " + this->inventory[i].toString() + "\n";
+      inv += to_string(i) + ": " + this->inventory[i]->toString() + "\n";
     }
   }
 
@@ -162,16 +162,16 @@ string Character::getInvAsStringSave()
 
   for (size_t i = 0; i < this->inventory.size(); i++)
   {
-    if (this->inventory[i].getItemType() == itemTypes::WEAPON)
-      inv += this->inventory[i].toStringSave();
+    if (this->inventory[i]->getItemType() == itemTypes::WEAPON)
+      inv += this->inventory[i]->toStringSave();
   }
 
   inv += "\n";
 
   for (size_t i = 0; i < this->inventory.size(); i++)
   {
-    if (this->inventory[i].getItemType() == itemTypes::ARMOR)
-      inv += this->inventory[i].toStringSave();
+    if (this->inventory[i]->getItemType() == itemTypes::ARMOR)
+      inv += this->inventory[i]->toStringSave();
   }
 
   return inv;
@@ -267,62 +267,60 @@ void Character::equipItem(unsigned index)
   {
     cout << "No valid item selected!"
          << "\n\n";
+
+    return;
   }
-  else
+
+  std::shared_ptr<Weapon> w = std::dynamic_pointer_cast<Weapon>(this->inventory[index]);
+  std::shared_ptr<Armor> a = std::dynamic_pointer_cast<Armor>(this->inventory[index]);
+
+  // Is weapon
+  if (w)
   {
-    Weapon* w = nullptr;
-    w = dynamic_cast<Weapon*>(&this->inventory[index]);
-
-    Armor* a = nullptr;
-    a = dynamic_cast<Armor*>(&this->inventory[index]);
-
-    // Is weapon
-    if (w != nullptr)
-    {
-      if (this->weapon.getRarity() >= 0)
-        this->inventory.addItem(this->weapon);
-      this->weapon = *w;
-      this->inventory.removeItem(index);
-    }
-    else if (a != nullptr)
-    {
-      switch (a->getType())
-      {
-        case armorType::HEAD:
-          if (this->armor_head.getRarity() >= 0)
-            this->inventory.addItem(this->armor_head);
-          this->armor_head = *a;
-          this->inventory.removeItem(index);
-          break;
-        case armorType::CHEST:
-          if (this->armor_chest.getRarity() >= 0)
-            this->inventory.addItem(this->armor_chest);
-          this->armor_chest = *a;
-          this->inventory.removeItem(index);
-          break;
-        case armorType::ARMS:
-          if (this->armor_arms.getRarity() >= 0)
-            this->inventory.addItem(this->armor_arms);
-          this->armor_arms = *a;
-          this->inventory.removeItem(index);
-          break;
-        case armorType::LEGS:
-          if (this->armor_legs.getRarity() >= 0)
-            this->inventory.addItem(this->armor_legs);
-          this->armor_legs = *a;
-          this->inventory.removeItem(index);
-          break;
-        default:
-          cout << "ERROR ARMOR TYPE INVALID!"
-               << "\n\n";
-          break;
-      }
-    }
-    else
-    {
-      cout << "ERROR EQUIP ITEM, ITEM IS NOT ARMOR OR WEAPON!";
-    }
+    if (this->weapon.getRarity() >= 0)
+      this->inventory.addItem(this->weapon);  // You might need a way to convert Weapon to shared_ptr<Item> here
+    this->weapon = *w;
+    this->inventory.removeItem(index);
+    return;
   }
+
+  if (a)
+  {
+    switch (a->getType())
+    {
+      case armorType::HEAD:
+        if (this->armor_head.getRarity() >= 0)
+          this->inventory.addItem(this->armor_head);  // And also here for Armor
+        this->armor_head = *a;
+        this->inventory.removeItem(index);
+        break;
+      case armorType::CHEST:
+        if (this->armor_chest.getRarity() >= 0)
+          this->inventory.addItem(this->armor_chest);
+        this->armor_chest = *a;
+        this->inventory.removeItem(index);
+        break;
+      case armorType::ARMS:
+        if (this->armor_arms.getRarity() >= 0)
+          this->inventory.addItem(this->armor_arms);
+        this->armor_arms = *a;
+        this->inventory.removeItem(index);
+        break;
+      case armorType::LEGS:
+        if (this->armor_legs.getRarity() >= 0)
+          this->inventory.addItem(this->armor_legs);
+        this->armor_legs = *a;
+        this->inventory.removeItem(index);
+        break;
+      default:
+        cout << "ERROR ARMOR TYPE INVALID!"
+             << "\n\n";
+        return;
+    }
+    return;
+  }
+  cout << "ERROR EQUIP ITEM, ITEM IS NOT ARMOR OR WEAPON!";
+  return;
 }
 
 void Character::removeItem(const int index)
@@ -345,7 +343,7 @@ const Item& Character::getItem(const int index)
     throw("ERROR OUT OF BOUNDS, GETITEM CHARACTER");
   }
 
-  return this->inventory[index];
+  return *(this->inventory[index]);
 }
 
 void Character::takeDamage(const int damage)

@@ -28,7 +28,7 @@ public:
   {
     return this->name;
   }
-  virtual Item* clone() const = 0;
+  virtual std::shared_ptr<Item> clone() const = 0;
   virtual std::string toString() const = 0;
   virtual std::string toStringSave() const = 0;
 

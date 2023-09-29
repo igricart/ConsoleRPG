@@ -25,7 +25,7 @@ public:
   virtual ~Armor();
 
   // Pure virtual
-  virtual Armor* clone() const;
+  virtual std::shared_ptr<Item> clone() const override;
 
   // Functions
   std::string toString() const;
@@ -42,6 +42,6 @@ public:
   }
 
   // Static
-  static dArr<std::string> names;
+  static std::vector<std::string> names;
   static void initNames();
 };

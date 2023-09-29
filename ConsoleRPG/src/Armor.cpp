@@ -1,15 +1,15 @@
 #include "Armor.h"
 
-dArr<std::string> Armor::names;
+std::vector<std::string> Armor::names;
 
 void Armor::initNames()
 {
-  Armor::names.push("Bro-Saver");
-  Armor::names.push("Cotton-Rag");
-  Armor::names.push("Devlish-Defender");
-  Armor::names.push("Angels-Balls");
-  Armor::names.push("Iron-Sheets");
-  Armor::names.push("Assassins-Bedsheets");
+  Armor::names.push_back("Bro-Saver");
+  Armor::names.push_back("Cotton-Rag");
+  Armor::names.push_back("Devlish-Defender");
+  Armor::names.push_back("Angels-Balls");
+  Armor::names.push_back("Iron-Sheets");
+  Armor::names.push_back("Assassins-Bedsheets");
 }
 
 Armor::Armor() : Item()
@@ -62,9 +62,9 @@ Armor::~Armor()
 {
 }
 
-Armor* Armor::clone() const
+std::shared_ptr<Item> Armor::clone() const
 {
-  return new Armor(*this);
+  return std::static_pointer_cast<Item>(std::make_shared<Armor>(*this));
 }
 
 std::string Armor::toString() const

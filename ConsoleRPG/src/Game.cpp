@@ -477,10 +477,9 @@ void Game::loadCharacters()
         temp.addItem(Armor(type, defense, name, level, buyValue, sellValue, rarity));
       }
 
-      this->characters.push_back(Character(temp));
-
       cout << "Character " << temp.getName() << " loaded!\n";
 
+      characters.push_back(std::move(temp));
       str.clear();
     }
   }
