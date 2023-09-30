@@ -393,9 +393,8 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
           combatTotal = enemies[choice].getDefense() + character.getAccuracy();
           enemyTotal = enemies[choice].getDefense() / (double)combatTotal * 100;
           playerTotal = character.getAccuracy() / (double)combatTotal * 100;
-          // TODO: this +1 is probably not necessary
-          combatRollPlayer = rand() % playerTotal + 1;
-          combatRollEnemy = rand() % enemyTotal + 1;
+          combatRollPlayer = (playerTotal == 0) ? 0 : rand() % playerTotal;
+          combatRollEnemy = (enemyTotal == 0) ? 0 : rand() % enemyTotal;
 
           std::cout << "Combat total: " << combatTotal << "\n";
           std::cout << "Enemy percent: " << enemyTotal << "\n";
@@ -527,8 +526,8 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
         combatTotal = enemies[i].getAccuracy() + (character.getDefense() + character.getAddedDefense());
         enemyTotal = enemies[i].getAccuracy() / (double)combatTotal * 100;
         playerTotal = (character.getDefense() + character.getAddedDefense()) / (double)combatTotal * 100;
-        combatRollPlayer = rand() % playerTotal + 1;
-        combatRollEnemy = rand() % enemyTotal + 1;
+        combatRollPlayer = (playerTotal == 0) ? 0 : rand() % playerTotal;
+        combatRollEnemy = (enemyTotal == 0) ? 0 : rand() % enemyTotal;
 
         std::cout << "Combat total: " << combatTotal << "\n";
         std::cout << "Enemy percent: " << enemyTotal << "\n";
