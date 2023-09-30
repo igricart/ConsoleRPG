@@ -85,3 +85,21 @@ bool Inventory::compareItems(const std::shared_ptr<Item>& a, const std::shared_p
     return a->getRarity() > b->getRarity();  // Assuming higher rarity is better
   return false;
 }
+
+int Inventory::size() const
+{
+  if (!itemArr)
+  {
+    cout << "Inventory not initialized" << endl;
+    return;
+  }
+  return itemArr->size();
+}
+
+void Inventory::debugPrint() const
+{
+  for (const auto& vec : (*itemArr))
+  {
+    std::cout << vec->debugPrint() << std::endl;
+  }
+}
