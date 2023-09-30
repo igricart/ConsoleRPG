@@ -34,7 +34,7 @@ Character::Character()
   stat_points_ = 0;
 }
 
-Character::Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality,
+Character::Character(std::string name, int distance_traveled, int gold, int level, int exp, int strength, int vitality,
                      int dexterity, int intelligence, int hp, int stamina, int statPoints)
   : weapon_(1, 0)
   , armor_arms_(2, 0, "Initial Gloves", 1, 0, 0, 0)
@@ -42,7 +42,7 @@ Character::Character(std::string name, int distanceTravelled, int gold, int leve
   , armor_head_(0, 0, "Initial Helmet", 1, 0, 0, 0)
   , armor_legs_(3, 0, "Initial Pants", 1, 0, 0, 0)
 {
-  distance_traveled_ = distanceTravelled;
+  distance_traveled_ = distance_traveled;
 
   gold_ = gold;
 

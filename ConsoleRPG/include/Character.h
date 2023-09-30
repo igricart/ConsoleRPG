@@ -43,8 +43,8 @@ private:
 
 public:
   Character();
-  Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality,
-            int dexterity, int intelligence, int hp, int stamina, int statPoints);
+  Character(std::string name, int distance_traveled, int gold, int level, int exp, int strength, int vitality,
+            int dexterity, int intelligence, int hp, int stamina, int stat_points);
   ~Character();
 
   // Functions

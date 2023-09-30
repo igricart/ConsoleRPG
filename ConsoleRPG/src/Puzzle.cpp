@@ -1,6 +1,6 @@
 #include "Puzzle.h"
 
-Puzzle::Puzzle(std::string fileName)
+Puzzle::Puzzle(std::string file_name)
 {
   // SAVE/LOAD FORMAT
   /*
@@ -11,7 +11,7 @@ Puzzle::Puzzle(std::string fileName)
   */
 
   correct_answer_ = 0;
-  std::ifstream inFile(fileName);
+  std::ifstream inFile(file_name);
 
   int nrOfAns = 0;
   std::string answer = "";

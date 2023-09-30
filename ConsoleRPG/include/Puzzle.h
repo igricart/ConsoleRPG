@@ -10,7 +10,7 @@ private:
   int correct_answer_;
 
 public:
-  Puzzle(std::string fileName);
+  Puzzle(std::string file_name);
   virtual ~Puzzle();
   std::string getAsString();
 

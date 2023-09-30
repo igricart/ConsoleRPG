@@ -26,11 +26,11 @@ Weapon::Weapon(int level, int rarity) : Item(ItemTypes::WEAPON, level, rarity)
   damage_min_ = damage_max_ / 2;
 }
 
-Weapon::Weapon(int damageMin, int damageMax, std::string name, int level, int buy_value, int sell_value, int rarity)
+Weapon::Weapon(int damage_min, int damage_max, std::string name, int level, int buy_value, int sell_value, int rarity)
   : Item(ItemTypes::WEAPON, name, level, buy_value, sell_value, rarity)
 {
-  damage_min_ = damageMin;
-  damage_max_ = damageMax;
+  damage_min_ = damage_min;
+  damage_max_ = damage_max;
 }
 
 Weapon::~Weapon()

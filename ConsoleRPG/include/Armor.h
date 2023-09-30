@@ -20,7 +20,7 @@ private:
 
 public:
   Armor(int level, int rarity);
-  Armor(int type, int defense, std::string name, int level, int buyValue, int sellValue, int rarity);
+  Armor(int type, int defense, std::string name, int level, int buy_value, int sell_value, int rarity);
   ~Armor();
 
   // Pure virtual

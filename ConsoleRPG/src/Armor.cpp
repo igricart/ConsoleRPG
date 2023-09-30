@@ -54,8 +54,8 @@ Armor::Armor(int level, int rarity) : Item(ItemTypes::ARMOR, level, rarity)
     defense_ += level * 10;
 }
 
-Armor::Armor(int type, int defense, std::string name, int level, int buyValue, int sellValue, int rarity)
-  : Item(ItemTypes::ARMOR, name, level, buyValue, sellValue, rarity)
+Armor::Armor(int type, int defense, std::string name, int level, int buy_value, int sell_value, int rarity)
+  : Item(ItemTypes::ARMOR, name, level, buy_value, sell_value, rarity)
 {
   type_ = type;
   defense_ = defense;
