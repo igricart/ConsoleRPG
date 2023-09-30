@@ -59,6 +59,7 @@ void Inventory::addItem(const Item& item)
     itemArr = std::make_unique<std::vector<std::shared_ptr<Item>>>();
   }
   itemArr->push_back(item.clone());
+  // TODO: Every time something is bought, the whole inventory updates
   // TODO: Check where the removeItem and operator[] are being used, to avoid accessing the wrong memory
   //  std::sort(itemArr->begin(), itemArr->end(),
   //            std::bind(&Inventory::compareItems, this, std::placeholders::_1, std::placeholders::_2));
@@ -90,14 +91,20 @@ int Inventory::size() const
 {
   if (!itemArr)
   {
-    cout << "Inventory not initialized" << endl;
-    return;
+    std::cout << "Inventory not initialized" << std::endl;
+    return 0;
   }
   return itemArr->size();
 }
 
 void Inventory::debugPrint() const
 {
+  if (!itemArr)
+  {
+    std::cout << "Inventory not initialized" << std::endl;
+    return;
+  }
+
   for (const auto& vec : (*itemArr))
   {
     std::cout << vec->debugPrint() << std::endl;
