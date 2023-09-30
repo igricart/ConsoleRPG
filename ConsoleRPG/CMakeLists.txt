@@ -30,6 +30,11 @@ set(SOURCES
   src/gui_functions.cpp
 )
 
+set(TEST_SOURCES
+  tests/ArmorTest.cpp
+  tests/InventoryTest.cpp
+)
+
 # Create the executable
 add_executable(console_rpg 
   src/main.cpp
@@ -62,7 +67,7 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 # Add test executable
-add_executable(runTests tests/ArmorTest.cpp ${SOURCES})
+add_executable(runTests ${TEST_SOURCES} ${SOURCES})
 target_link_libraries(runTests gtest gtest_main Threads::Threads)
 
 # Enables testing via the 'make test' command

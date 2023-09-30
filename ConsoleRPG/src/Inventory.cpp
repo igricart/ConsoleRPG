@@ -42,7 +42,7 @@ std::shared_ptr<Item>& Inventory::operator[](const int index)
 {
   if (!itemArr)
   {
-    throw("Non Initialized Pointer");
+    throw std::runtime_error("Non Initialized Pointer");
   }
   if (index < 0 || index >= itemArr->size())
   {
@@ -69,7 +69,7 @@ void Inventory::removeItem(int index)
 {
   if (!itemArr)
   {
-    return;
+    throw std::runtime_error("Non Initialized Pointer");
   }
   if (index < 0 || index >= itemArr->size())
   {
