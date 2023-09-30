@@ -12,12 +12,6 @@ void Weapon::initNames()
   Weapon::names.push_back("Brutal-Murder");
 }
 
-Weapon::Weapon() : Item()
-{
-  this->damageMax = 0;
-  this->damageMin = 0;
-}
-
 Weapon::Weapon(int level, int rarity) : Item(itemTypes::WEAPON, level, rarity)
 {
   this->damageMax = rand() % level * (rarity + 1);

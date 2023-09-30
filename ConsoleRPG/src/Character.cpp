@@ -1,6 +1,11 @@
 #include "Character.h"
 
 Character::Character()
+  : weapon(1, 0)
+  , armor_arms(2, 0, "Initial Gloves", 1, 0, 0, 0)
+  , armor_chest(1, 0, "Initial Shirt", 1, 0, 0, 0)
+  , armor_head(0, 0, "Initial Helmet", 1, 0, 0, 0)
+  , armor_legs(3, 0, "Initial Pants", 1, 0, 0, 0)
 {
   this->distanceTravelled = 0;
 
@@ -31,6 +36,11 @@ Character::Character()
 
 Character::Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality,
                      int dexterity, int intelligence, int hp, int stamina, int statPoints)
+  : weapon(1, 0)
+  , armor_arms(2, 0, "Initial Gloves", 1, 0, 0, 0)
+  , armor_chest(1, 0, "Initial Shirt", 1, 0, 0, 0)
+  , armor_head(0, 0, "Initial Helmet", 1, 0, 0, 0)
+  , armor_legs(3, 0, "Initial Pants", 1, 0, 0, 0)
 {
   this->distanceTravelled = distanceTravelled;
 
@@ -355,4 +365,129 @@ void Character::takeDamage(const int damage)
   {
     this->hp = 0;
   }
+}
+
+void Character::resetHP()
+{
+  this->hp = this->hpMax;
+}
+
+void Character::addItem(const Item& item)
+{
+  this->inventory.addItem(item);
+}
+
+const int& Character::getDistTravel() const
+{
+  return this->distanceTravelled;
+}
+const std::string& Character::getName() const
+{
+  return this->name;
+}
+const int& Character::getLevel() const
+{
+  return this->level;
+}
+const int& Character::getExp() const
+{
+  return this->exp;
+}
+const int& Character::getExpNext() const
+{
+  return this->expNext;
+}
+const int& Character::getStatPoints() const
+{
+  return this->statPoints;
+}
+const int& Character::getHP() const
+{
+  return this->hp;
+}
+const int& Character::getHPMax() const
+{
+  return this->hpMax;
+}
+const bool Character::isAlive()
+{
+  return this->hp > 0;
+}
+const int& Character::getStamina() const
+{
+  return this->stamina;
+}
+const int& Character::getDamageMin() const
+{
+  return this->damageMin;
+}
+const int& Character::getDamageMax() const
+{
+  return this->damageMax;
+}
+const int Character::getDamage() const
+{
+  return rand() % (this->damageMax + this->weapon.getDamageMax()) + (this->damageMin + this->weapon.getDamageMin());
+}
+const int& Character::getDefense() const
+{
+  return this->defense;
+}
+const int Character::getAddedDefense() const
+{
+  return this->armor_arms.getDefense() + this->armor_chest.getDefense() + this->armor_legs.getDefense() +
+         this->armor_head.getDefense();
+}
+const int& Character::getAccuracy() const
+{
+  return this->accuracy;
+}
+const int Character::getGold() const
+{
+  return this->gold;
+}
+const int Character::getInventorySize() const
+{
+  return this->inventory.size();
+}
+
+void Character::setDistTravelled(const int& distance)
+{
+  this->distanceTravelled = distance;
+}
+void Character::travel()
+{
+  this->distanceTravelled++;
+}
+void Character::gainExp(const int exp)
+{
+  this->exp += exp;
+}
+void Character::gainGold(const int gold)
+{
+  this->gold += gold;
+}
+void Character::payGold(const int gold)
+{
+  this->gold -= gold;
+}
+void Character::setWeapon(Weapon weapon)
+{
+  this->weapon = weapon;
+}
+void Character::setArmorHead(Armor armor_head)
+{
+  this->armor_head = armor_head;
+}
+void Character::setArmorChest(Armor armor_chest)
+{
+  this->armor_chest = armor_chest;
+}
+void Character::setArmorArms(Armor armor_arms)
+{
+  this->armor_arms = armor_arms;
+}
+void Character::setArmorLegs(Armor armor_legs)
+{
+  this->armor_legs = armor_legs;
 }

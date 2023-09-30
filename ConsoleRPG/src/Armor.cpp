@@ -12,12 +12,6 @@ void Armor::initNames()
   Armor::names.push_back("Assassins-Bedsheets");
 }
 
-Armor::Armor() : Item()
-{
-  this->type = -1;
-  this->defense = 0;
-}
-
 Armor::Armor(int level, int rarity) : Item(itemTypes::ARMOR, level, rarity)
 {
   int denominator = level * (rarity + 1);

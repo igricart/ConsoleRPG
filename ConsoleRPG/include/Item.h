@@ -19,7 +19,6 @@ private:
   int rarity;
 
 public:
-  Item();
   Item(int itemType, int level, int rarity);
   Item(int itemType, std::string name, int level, int buyValue, int sellValue, int rarity);
   virtual ~Item();

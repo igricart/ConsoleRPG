@@ -1,15 +1,5 @@
 #include "Item.h"
 
-Item::Item()
-{
-  this->itemType = -1;
-  this->name = "EMPTY";
-  this->level = 0;
-  this->buyValue = 0;
-  this->sellValue = 0;
-  this->rarity = -1;
-}
-
 Item::Item(int itemType, int level, int rarity)
 {
   this->name = "RANDOM";

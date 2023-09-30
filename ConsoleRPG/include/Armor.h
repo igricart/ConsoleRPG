@@ -19,8 +19,6 @@ private:
   int defense;
 
 public:
-  // TODO: Delete defaut constructor as it is not used
-  Armor();
   Armor(int level, int rarity);
   Armor(int type, int defense, std::string name, int level, int buyValue, int sellValue, int rarity);
   ~Armor();
