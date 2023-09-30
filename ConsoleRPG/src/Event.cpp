@@ -586,7 +586,7 @@ void Event::puzzleEncouter(Character& character)
   int gainGold = (chances * character.getLevel() * (rand() % 10 + 1));
   //H:\ConsoleRPG\ConsoleRPG\
 
-  Puzzle puzzle("Puzzles/1.txt");
+  Puzzle puzzle("../Puzzles/1.txt");
 
   while (!completed && chances > 0)
   {
