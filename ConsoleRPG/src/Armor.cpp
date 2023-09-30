@@ -56,6 +56,24 @@ Armor::Armor(int type, int defense, std::string name, int level, int buyValue, i
 {
   this->type = type;
   this->defense = defense;
+  switch (this->type)
+  {
+    case armorType::HEAD:
+      this->typeStr = "Head";
+      break;
+    case armorType::CHEST:
+      this->typeStr = "Chest";
+      break;
+    case armorType::ARMS:
+      this->typeStr = "Arms";
+      break;
+    case armorType::LEGS:
+      this->typeStr = "Legs";
+      break;
+    default:
+      this->typeStr = "ERROR INVALID!";
+      break;
+  }
 }
 
 Armor::~Armor()

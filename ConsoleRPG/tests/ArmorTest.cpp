@@ -9,12 +9,13 @@ TEST(ArmorTest, InitNamesTest)
   // ... continue for other names if needed
 }
 
-TEST(ArmorTest, DefaultConstructorTest)
-{
-  Armor armor;
-  EXPECT_EQ(armor.getDefense(), 0);
-  EXPECT_EQ(armor.getType(), -1);
-}
+// TODO: Remove this test as the defaults constructor has to be removed
+// TEST(ArmorTest, DefaultConstructorTest)
+// {
+//   Armor armor;
+//   EXPECT_EQ(armor.getDefense(), 0);
+//   EXPECT_EQ(armor.getType(), -1);
+// }
 
 TEST(ArmorTest, ParameterizedConstructorTest)
 {
