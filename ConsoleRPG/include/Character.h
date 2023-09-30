@@ -8,38 +8,38 @@
 class Character
 {
 private:
-  int distanceTravelled;
+  int distance_traveled_;
 
-  Inventory inventory;
-  Weapon weapon;
-  Armor armor_head;
-  Armor armor_chest;
-  Armor armor_arms;
-  Armor armor_legs;
-  int gold;
+  Inventory inventory_;
+  Weapon weapon_;
+  Armor armor_head_;
+  Armor armor_chest_;
+  Armor armor_arms_;
+  Armor armor_legs_;
+  int gold_;
 
-  std::string name;
-  int level;
-  int exp;
-  int expNext;
+  std::string name_;
+  int level_;
+  int exp_;
+  int expNext_;
 
-  int strength;
-  int vitality;
-  int dexterity;
-  int intelligence;
+  int strength_;
+  int vitality_;
+  int dexterity_;
+  int intelligence_;
 
-  int hp;
-  int hpMax;
-  int stamina;
-  int staminaMax;
-  int damageMin;
-  int damageMax;
-  int defense;
-  int accuracy;
+  int hp_;
+  int hp_max_;
+  int stamina_;
+  int staminaMax_;
+  int damage_min_;
+  int damage_max_;
+  int defense_;
+  int accuracy_;
   // TODO: Add luck to the system
-  int luck;
+  int luck_;
 
-  int statPoints;
+  int stat_points_;
 
 public:
   Character();
