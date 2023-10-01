@@ -34,7 +34,12 @@
       "args": [], // Any command-line arguments you want to pass
       "stopAtEntry": true, // Set this to true if you want the debugger to stop at the main() function
       "cwd": "${workspaceFolder}/build",
-      "environment": [],
+      "environment": [
+        {
+          "name": "OPEN_API_KEY",
+          "value": "use_your_key"
+        }
+      ],
       "externalConsole": false,
       "MIMode": "gdb",
       "setupCommands": [
