@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 #include <algorithm>  // for std::shuffle
 #include <random>     // for std::default_random_engine
+#include <set>
 
 class Puzzle
 {
@@ -34,12 +35,13 @@ private:
   std::string riddle;
   std::vector<std::string> options;
   int correct_answer_index;
-  std::vector<std::string> previous_answers;
+  std::set<std::string>& unique_strings_;
 
 public:
   // Constructor from JSON
-  GPTPuzzle()
+  GPTPuzzle(std::set<std::string>& unique_strings) : unique_strings_(unique_strings)
   {
+    std::cout << "Constructor Called" << std::endl;
     // API token as argument
     const char* apiKey = std::getenv("OPEN_API_KEY");
     if (!apiKey)
@@ -49,28 +51,33 @@ public:
     }
     OpenAI::ChatGPT chatGpt{ apiKey };
     nlohmann::json j;
-    try
+
+    std::string correct_answer;
+    do
     {
-      // type of user and the message to ask
-      // TODO: Check if the answer has alrady been used and check if the format is valid (wouldnt cause throw)
-      auto response = chatGpt.askChatGPT(
-          "user", "Give me a new logic riddle in the json format: {riddle, wrong_answers: [], correct_answer}.");
+      try
+      {
+        // type of user and the message to ask
+        // TODO: Check if the answer has alrady been used and check if the format is valid (wouldnt cause throw)
+        auto response = chatGpt.askChatGPT(
+            "user", "Give me a new logic riddle in the json format: {riddle, wrong_answers: [], correct_answer}.");
 
-      std::cout << "Raw response: \n" << response.choices[0].message.content << std::endl;
-      j = nlohmann::json::parse(response.choices[0].message.content);
-      std::cout << "JSON parsed: \n" << j.dump(4) << std::endl;
-    }
-    catch (OpenAI::Error& e)
-    {
-      // JSON error returned by the server
-      std::cout << e.what();
-    }
+        std::cout << "Raw response: \n" << response.choices[0].message.content << std::endl;
+        j = nlohmann::json::parse(response.choices[0].message.content);
+        std::cout << "JSON parsed: \n" << j.dump(4) << std::endl;
+      }
+      catch (OpenAI::Error& e)
+      {
+        // JSON error returned by the server
+        std::cout << e.what();
+      }
 
-    riddle = j["riddle"];
-    options = j["wrong_answers"].get<std::vector<std::string>>();
-    options.push_back(j["correct_answer"].get<std::string>());
-    correct_answer_index = options.size() - 1;  // The correct answer is initially the last one
-
+      correct_answer = j["correct_answer"].get<std::string>();
+      riddle = j["riddle"];
+      options = j["wrong_answers"].get<std::vector<std::string>>();
+      options.push_back(correct_answer);
+      correct_answer_index = options.size() - 1;  // The correct answer is initially the last one
+    } while (insertIfNotExists(correct_answer, unique_strings_));
     // Shuffle the options
     std::random_device rd;
     std::mt19937 g(rd());
@@ -85,6 +92,19 @@ public:
         break;
       }
     }
+  }
+
+  bool insertIfNotExists(const std::string& str, std::set<std::string>& unique_strings)
+  {
+    std::cout << "Checking if " << str << " exists in the set";
+    auto [_, inserted] = unique_strings.insert(str);
+    std::cout << "Current set: ";
+
+    for (auto& s : unique_strings)
+    {
+      std::cout << s << " | " << std::endl;
+    }
+    return inserted;
   }
 
   // Display the puzzle
@@ -104,9 +124,9 @@ public:
     return choice == correct_answer_index + 1;  // +1 because choices are 1-based
   }
 
-  static void example()
+  static void example(std::set<std::string>& unique_string)
   {
-    GPTPuzzle gpt_puzzle;
+    GPTPuzzle gpt_puzzle(unique_string);
 
     gpt_puzzle.display();
 
