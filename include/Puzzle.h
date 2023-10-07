@@ -11,6 +11,10 @@
 #include <random>     // for std::default_random_engine
 #include <set>
 
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <boost/filesystem.hpp>
+
 class Puzzle
 {
 private:
@@ -19,116 +23,70 @@ private:
   int correct_answer_;
 
 public:
-  Puzzle(std::string file_name);
+  Puzzle(const boost::filesystem::path& filepath);
   virtual ~Puzzle();
-  std::string getAsString();
+  std::string getAsString() const;
 
-  inline const int& getCorrectAns() const
+  const int getCorrectAns() const
   {
     return correct_answer_;
   }
 };
 
+// TODO: Make unique_string persistent (it should be recorded somewhere)
 class GPTPuzzle
 {
 private:
-  std::string riddle;
-  std::vector<std::string> options;
-  int correct_answer_index;
-  std::set<std::string>& unique_strings_;
+  std::string question_;
+  std::vector<std::string> answers_;
+  int correct_answer_index_;
+  boost::filesystem::path filepath_;
+  std::set<std::string> unique_strings_;
+
+  /**
+   * @brief inserts string in a set if possible
+   *
+   * @param str
+   * @param unique_strings
+   * @return true - insert succeeded
+   * @return false - value already existed in the set
+   */
+  bool insertIfNotExists(const std::string& str, std::set<std::string>& unique_strings);
+
+  /**
+   * @brief Check if the choice is correct
+   *
+   * @param choice
+   * @return true
+   * @return false
+   */
+  bool is_correct(int choice) const;
+
+  std::set<std::string> loadSetFromFile(const boost::filesystem::path& filepath);
+
+  void saveSetToFile(const std::set<std::string>& data, const boost::filesystem::path& filepath);
 
 public:
-  // Constructor from JSON
-  GPTPuzzle(std::set<std::string>& unique_strings) : unique_strings_(unique_strings)
-  {
-    std::cout << "Constructor Called" << std::endl;
-    // API token as argument
-    const char* apiKey = std::getenv("OPEN_API_KEY");
-    if (!apiKey)
-    {
-      std::cout << "Environment variable OPEN_API_KEY is not set." << std::endl;
-      throw std::runtime_error("No environment variable to provide Open API key provided.");
-    }
-    OpenAI::ChatGPT chatGpt{ apiKey };
-    nlohmann::json j;
+  /**
+   * @brief Construct a new GPTPuzzle object
+   *
+   * @param unique_strings - set answers that have already been used
+   */
+  GPTPuzzle(const boost::filesystem::path& filepath);
 
-    std::string correct_answer;
-    do
-    {
-      try
-      {
-        // type of user and the message to ask
-        // TODO: Check if the answer has alrady been used and check if the format is valid (wouldnt cause throw)
-        auto response = chatGpt.askChatGPT(
-            "user", "Give me a new logic riddle in the json format: {riddle, wrong_answers: [], correct_answer}.");
-
-        std::cout << "Raw response: \n" << response.choices[0].message.content << std::endl;
-        j = nlohmann::json::parse(response.choices[0].message.content);
-        std::cout << "JSON parsed: \n" << j.dump(4) << std::endl;
-      }
-      catch (OpenAI::Error& e)
-      {
-        // JSON error returned by the server
-        std::cout << e.what();
-      }
-
-      correct_answer = j["correct_answer"].get<std::string>();
-      riddle = j["riddle"];
-      options = j["wrong_answers"].get<std::vector<std::string>>();
-      options.push_back(correct_answer);
-      correct_answer_index = options.size() - 1;  // The correct answer is initially the last one
-    } while (insertIfNotExists(correct_answer, unique_strings_));
-    // Shuffle the options
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(options.begin(), options.end(), g);
-
-    // Update the correct_answer_index after shuffling
-    for (size_t i = 0; i < options.size(); ++i)
-    {
-      if (options[i] == j["correct_answer"].get<std::string>())
-      {
-        correct_answer_index = i;
-        break;
-      }
-    }
-  }
-
-  bool insertIfNotExists(const std::string& str, std::set<std::string>& unique_strings)
-  {
-    std::cout << "Checking if " << str << " exists in the set";
-    auto [_, inserted] = unique_strings.insert(str);
-    std::cout << "Current set: ";
-
-    for (auto& s : unique_strings)
-    {
-      std::cout << s << " | " << std::endl;
-    }
-    return inserted;
-  }
+  ~GPTPuzzle();
 
   // Display the puzzle
-  void display() const
-  {
-    std::cout << "Riddle: " << riddle << std::endl;
-    std::cout << "Options:" << std::endl;
-    for (size_t i = 0; i < options.size(); ++i)
-    {
-      std::cout << i + 1 << ". " << options[i] << std::endl;
-    }
-  }
+  std::string getAsString() const;
 
-  // Check if the provided answer is correct
-  bool is_correct(int choice) const
-  {
-    return choice == correct_answer_index + 1;  // +1 because choices are 1-based
-  }
+  const int getCorrectAns() const;
 
-  static void example(std::set<std::string>& unique_string)
+  static void example()
   {
-    GPTPuzzle gpt_puzzle(unique_string);
+    std::string file_path = "/tmp/unique_set.txt";
+    GPTPuzzle gpt_puzzle(file_path);
 
-    gpt_puzzle.display();
+    spdlog::info(gpt_puzzle.getAsString());
 
     int attempts = 2;
     int userChoice;
