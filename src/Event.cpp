@@ -14,8 +14,8 @@ Event::~Event()
 
 void Event::generateEvent(Character& character, std::vector<Enemy>& enemies)
 {
-  // int i = rand() % Event::nrOfEvents;
-  switch (2)
+  int i = rand() % Event::nrOfEvents;
+  switch (i)
   {
     case 0:
       // Enemy encounter
@@ -963,6 +963,21 @@ void Event::puzzleEncouter(Character& character)
 //   	}
 //   }
 // }
+
+void Event::printShopMenu() const
+{
+  system("clear");
+  spdlog::info("= SHOP MENU =\n");
+
+  spdlog::info("Instructions:");
+  spdlog::info("- Choose an option by entering the corresponding number.");
+  spdlog::info("- Press 'Enter' to leave the shop.\n");
+
+  spdlog::info("1: Buy");
+  spdlog::info("2: Sell\n");
+
+  spdlog::info("Choice: ");
+}
 
 void Event::printShopMenu() const
 {
