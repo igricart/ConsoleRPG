@@ -15,8 +15,12 @@ void setupLogger()
   color_sink->set_pattern("%^%v%$");
 
   // 3. Set the colors for the info and debug levels
-  color_sink->set_color(spdlog::level::info, color_sink->white);
+  color_sink->set_color(spdlog::level::trace, color_sink->green);
   color_sink->set_color(spdlog::level::debug, color_sink->cyan);
+  color_sink->set_color(spdlog::level::info, color_sink->white);
+  color_sink->set_color(spdlog::level::warn, color_sink->yellow);
+  color_sink->set_color(spdlog::level::err, color_sink->red);
+  color_sink->set_color(spdlog::level::critical, color_sink->magenta);
 
   // 4. Create a logger with the color sink
   auto logger = std::make_shared<spdlog::logger>("global", color_sink);
