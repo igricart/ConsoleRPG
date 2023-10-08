@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt-get install -y spdlog
+      run: sudo apt update && install -y spdlog
     - name: Build
       run: |
         mkdir build
