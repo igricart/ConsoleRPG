@@ -152,7 +152,7 @@ void Game::mainMenu()
               << "\n";
     std::cin >> choice_;
 
-    while (std::cin.fail() || choice_ < 0 || choice_ > 1)
+    while (std::cin.fail() || choice_ > 1)
     {
       std::cout << "Faulty input!"
                 << "\n";
@@ -281,7 +281,7 @@ void Game::characterMenu()
 
     std::cin >> choice_;
 
-    while (std::cin.fail() || choice_ < 0 || choice_ > 2)
+    while (std::cin.fail() || choice_ > 2)
     {
       std::cout << "Faulty input!"
                 << "\n";
@@ -318,7 +318,7 @@ void Game::characterMenu()
         std::cout << "Item index: ";
         std::cin >> choice_;
 
-        while (std::cin.fail() || choice_ < 0 || choice_ >= characters_[active_character_].getInventorySize())
+        while (std::cin.fail() || choice_ >= characters_[active_character_].getInventorySize())
         {
           std::cout << "Faulty input!"
                     << "\n";
@@ -508,7 +508,7 @@ void Game::selectCharacter()
 
   std::cin >> choice_;
 
-  while (std::cin.fail() || choice_ >= characters_.size() || choice_ < 0)
+  while (std::cin.fail() || choice_ >= characters_.size())
   {
     std::cout << "Faulty input!"
               << "\n";
@@ -565,7 +565,7 @@ void Game::rest()
 
     std::cin >> choice_;
 
-    while (std::cin.fail() || choice_ < 0 || choice_ > 1)
+    while (std::cin.fail() || choice_ > 1)
     {
       std::cout << "Faulty input!"
                 << "\n";

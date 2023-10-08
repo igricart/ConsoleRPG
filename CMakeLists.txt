@@ -5,7 +5,7 @@ project(console_rpg)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# add_compile_options(-Wall -Wextra -Werror)
+add_compile_options(-Wall -Wextra -Werror)
 
 if(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
@@ -49,7 +49,7 @@ add_executable(console_rpg
   src/main.cpp
   ${SOURCES})
 
-target_link_libraries(console_rpg PRIVATE ChatGPTDll spdlog::spdlog Boost::filesystem)
+target_link_libraries(console_rpg PRIVATE ChatGPTDll spdlog::spdlog Boost::filesystem Threads::Threads)
 
 # Fetch GoogleTest using FetchContent
 include(FetchContent)

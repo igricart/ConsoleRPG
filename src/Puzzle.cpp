@@ -13,7 +13,7 @@ Puzzle::Puzzle(const boost::filesystem::path& filepath)
   correct_answer_ = 0;
   std::ifstream inFile(filepath.string());
 
-  int nrOfAns = 0;
+  size_t nrOfAns = 0;
   std::string answer = "";
   int correctAns = 0;
 
@@ -41,6 +41,11 @@ Puzzle::Puzzle(const boost::filesystem::path& filepath)
 
 Puzzle::~Puzzle()
 {
+}
+
+int Puzzle::getCorrectAns() const
+{
+  return correct_answer_;
 }
 
 std::string Puzzle::getAsString() const
@@ -152,7 +157,7 @@ std::string GPTPuzzle::getAsString() const
   return ss.str();
 }
 
-const int GPTPuzzle::getCorrectAns() const
+int GPTPuzzle::getCorrectAns() const
 {
   return correct_answer_index_ + 1;
 }

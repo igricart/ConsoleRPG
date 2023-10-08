@@ -7,33 +7,7 @@ Character::Character()
   , armor_head_(0, 0, "Initial Helmet", 1, 0, 0, 0)
   , armor_legs_(3, 0, "Initial Pants", 1, 0, 0, 0)
 {
-  distance_traveled_ = 0;
-
-  gold_ = 0;
-
-  name_ = "";
-  level_ = 0;
-  exp_ = 0;
-  expNext_ = 0;
-
-  strength_ = 0;
-  vitality_ = 0;
-  dexterity_ = 0;
-  intelligence_ = 0;
-
-  hp_ = 0;
-  hp_max_ = 0;
-  stamina_ = 0;
-  staminaMax_ = 0;
-  damage_min_ = 0;
-  damage_max_ = 0;
-  defense_ = 0;
-  accuracy_ = 0;
-  luck_ = 0;
-
-  stat_points_ = 0;
 }
-
 Character::Character(std::string name, int distance_traveled, int gold, int level, int exp, int strength, int vitality,
                      int dexterity, int intelligence, int hp, int stamina, int statPoints)
   : weapon_(1, 0)
@@ -49,7 +23,6 @@ Character::Character(std::string name, int distance_traveled, int gold, int leve
   name_ = name;
   level_ = level;
   exp_ = exp;
-  expNext_ = 0;
 
   strength_ = strength;
   vitality_ = vitality;
@@ -57,15 +30,7 @@ Character::Character(std::string name, int distance_traveled, int gold, int leve
   intelligence_ = intelligence;
 
   hp_ = hp;
-  hp_max_ = 0;
   stamina_ = stamina;
-  staminaMax_ = 0;
-  damage_min_ = 0;
-  damage_max_ = 0;
-  defense_ = 0;
-  accuracy_ = 0;
-  luck_ = 0;
-
   stat_points_ = statPoints;
 
   updateStats();
@@ -272,9 +237,9 @@ void Character::addToStat(int stat, int value)
   }
 }
 
-void Character::equipItem(unsigned index)
+void Character::equipItem(size_t index)
 {
-  if (index < 0 || index >= inventory_.size())
+  if (index >= inventory_.size())
   {
     std::cout << "No valid item selected!"
               << "\n\n";
@@ -334,9 +299,9 @@ void Character::equipItem(unsigned index)
   return;
 }
 
-void Character::removeItem(const int index)
+void Character::removeItem(size_t index)
 {
-  if (index < 0 || index >= inventory_.size())
+  if (index >= inventory_.size())
     std::cout << "ERROR, NOT POSSIBLE TO REMOVE ITEM, removeItem Character"
               << "\n\n";
   else
@@ -345,9 +310,9 @@ void Character::removeItem(const int index)
   }
 }
 
-const Item& Character::getItem(const int index)
+const Item& Character::getItem(size_t index)
 {
-  if (index < 0 || index >= inventory_.size())
+  if (index >= inventory_.size())
   {
     std::cout << "ERROR, NOT POSSIBLE TO REMOVE ITEM, getItem Character"
               << "\n\n";
@@ -377,80 +342,75 @@ void Character::addItem(const Item& item)
   inventory_.addItem(item);
 }
 
-const int& Character::getDistTravel() const
-{
-  return distance_traveled_;
-}
-const std::string& Character::getName() const
+std::string Character::getName() const
 {
   return name_;
 }
-const int& Character::getLevel() const
+int Character::getLevel() const
 {
   return level_;
 }
-const int& Character::getExp() const
+int Character::getExp() const
 {
   return exp_;
 }
-const int& Character::getExpNext() const
+int Character::getExpNext() const
 {
   return expNext_;
 }
-const int& Character::getStatPoints() const
+int Character::getStatPoints() const
 {
   return stat_points_;
 }
-const int& Character::getHP() const
+int Character::getHP() const
 {
   return hp_;
 }
-const int& Character::getHPMax() const
+int Character::getHPMax() const
 {
   return hp_max_;
 }
-const bool Character::isAlive()
+bool Character::isAlive() const
 {
   return hp_ > 0;
 }
-const int& Character::getStamina() const
+int Character::getStamina() const
 {
   return stamina_;
 }
-const int& Character::getDamageMin() const
+int Character::getDamageMin() const
 {
   return damage_min_;
 }
-const int& Character::getDamageMax() const
+int Character::getDamageMax() const
 {
   return damage_max_;
 }
-const int Character::getDamage() const
+int Character::getDamage() const
 {
   return rand() % (damage_max_ + weapon_.getDamageMax()) + (damage_min_ + weapon_.getDamageMin());
 }
-const int& Character::getDefense() const
+int Character::getDefense() const
 {
   return defense_;
 }
-const int Character::getAddedDefense() const
+int Character::getAddedDefense() const
 {
   return armor_arms_.getDefense() + armor_chest_.getDefense() + armor_legs_.getDefense() + armor_head_.getDefense();
 }
-const int& Character::getAccuracy() const
+int Character::getAccuracy() const
 {
   return accuracy_;
 }
-const int Character::getGold() const
+int Character::getGold() const
 {
   return gold_;
 }
-const int Character::getInventorySize() const
+unsigned int Character::getInventorySize() const
 {
   return inventory_.size();
 }
-
-void Character::setDistTravelled(const int& distance)
+void Character::setDistTravelled(const int distance)
 {
   distance_traveled_ = distance;
 }
