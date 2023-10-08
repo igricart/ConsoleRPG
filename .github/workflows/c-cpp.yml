@@ -27,9 +27,9 @@ jobs:
         cd vcpkg
         ./bootstrap-vcpkg.sh
 
-    - name: Install cpr and nlohmann_json using vcpkg
+    - name: Install cpr, nlohmann_json, and spdlog using vcpkg
       run: |
-        ./vcpkg/vcpkg install cpr nlohmann-json
+        ./vcpkg/vcpkg install cpr nlohmann-json spdlog
 
     - name: Create build directory
       run: mkdir build
