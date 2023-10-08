@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt-get install -y <your-dependencies-here>
+      run: sudo apt-get install -y spdlog
     - name: Build
       run: |
         mkdir build
@@ -22,4 +22,4 @@ jobs:
         cmake ..
         make
     - name: Run tests
-      run: ./path-to-your-test-binary
+      run: ./runTests
