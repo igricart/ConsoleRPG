@@ -1,25 +1,45 @@
-name: C/C++ CI
+name: C++ CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ master ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Install dependencies
-      run: sudo apt update && sudo apt install -y libspdlog-dev libboost-filesystem-dev
-    - name: Build
       run: |
-        mkdir build
+        sudo apt-get update
+        sudo apt-get install -y libssl-dev
+        sudo apt-get install -y libcurl4-openssl-dev
+        # You might need other dependencies based on your project's requirements.
+
+    - name: Install vcpkg (package manager for C++)
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        cd vcpkg
+        ./bootstrap-vcpkg.sh
+
+    - name: Install cpr and nlohmann_json using vcpkg
+      run: |
+        ./vcpkg/vcpkg install cpr nlohmann-json
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Run CMake and build
+      run: |
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
+        cmake .. -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
         make
-    - name: Run tests
+
+    - name: Run tests (if you have any)
       run: ./build/runTests
+
