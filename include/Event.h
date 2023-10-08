@@ -14,6 +14,7 @@ class Event
 {
 private:
   void printShop(Inventory& inventory);
+  void printShopMenu() const;
   void validateShopInput(size_t& choice, size_t max_value);
   std::optional<size_t> enterOrInput(size_t max_value);
 

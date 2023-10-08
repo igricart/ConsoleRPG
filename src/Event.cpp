@@ -14,8 +14,8 @@ Event::~Event()
 
 void Event::generateEvent(Character& character, std::vector<Enemy>& enemies)
 {
-  int i = rand() % Event::nrOfEvents;
-  switch (i)
+  // int i = rand() % Event::nrOfEvents;
+  switch (2)
   {
     case 0:
       // Enemy encounter
@@ -157,13 +157,7 @@ void Event::shopEncouter(Character& character)
 
   while (shopping)
   {
-    system("clear");
-    // Print the menu
-    spdlog::info("= SHOP MENU =\n");
-    spdlog::info("Enter: Leave");
-    spdlog::info("0: Buy");
-    spdlog::info("1: Sell");
-    spdlog::info("\nChoice: ");
+    printShopMenu();
 
     auto choice = enterOrInput(2);
 
@@ -288,10 +282,10 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
   // Battle loop
   while (true)
   {
+    system("clear");
     if (playerTurn)
     {
       // Menu
-      // system("clear");
 
       std::cout << "= PLAYER TURN ="
                 << "\n\n";
@@ -969,3 +963,18 @@ void Event::puzzleEncouter(Character& character)
 //   	}
 //   }
 // }
+
+void Event::printShopMenu() const
+{
+  system("clear");
+  spdlog::info("= SHOP MENU =\n");
+
+  spdlog::info("Instructions:");
+  spdlog::info("- Choose an option by entering the corresponding number.");
+  spdlog::info("- Press 'Enter' to leave the shop.\n");
+
+  spdlog::info("1: Buy");
+  spdlog::info("2: Sell\n");
+
+  spdlog::info("Choice: ");
+}
