@@ -6,7 +6,7 @@
 class Game
 {
 private:
-  int choice_;
+  unsigned int choice_;
   bool playing_;
 
   // Character related

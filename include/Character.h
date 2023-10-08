@@ -8,14 +8,14 @@
 class Character
 {
 private:
+  Weapon weapon_;
+  Armor armor_arms_;
+  Armor armor_chest_;
+  Armor armor_head_;
+  Armor armor_legs_;
+  Inventory inventory_;
   int distance_traveled_;
 
-  Inventory inventory_;
-  Weapon weapon_;
-  Armor armor_head_;
-  Armor armor_chest_;
-  Armor armor_arms_;
-  Armor armor_legs_;
   int gold_;
 
   std::string name_;
@@ -56,34 +56,33 @@ public:
   void levelUp();
   void updateStats();
   void addToStat(int stat, int value);
-  void equipItem(unsigned index);
+  void equipItem(size_t index);
   void resetHP();
   void addItem(const Item& item);
-  void removeItem(const int index);
-  const Item& getItem(const int index);
+  void removeItem(size_t index);
+  const Item& getItem(size_t index);
 
   // Accessors
-  const int& getDistTravel() const;
-  const std::string& getName() const;
-  const int& getLevel() const;
-  const int& getExp() const;
-  const int& getExpNext() const;
-  const int& getStatPoints() const;
-  const int& getHP() const;
-  const int& getHPMax() const;
-  const bool isAlive();
-  const int& getStamina() const;
-  const int& getDamageMin() const;
-  const int& getDamageMax() const;
-  const int getDamage() const;
-  const int& getDefense() const;
-  const int getAddedDefense() const;
-  const int& getAccuracy() const;
-  const int getGold() const;
-  const int getInventorySize() const;
+  std::string getName() const;
+  int getLevel() const;
+  int getExp() const;
+  int getExpNext() const;
+  int getStatPoints() const;
+  int getHP() const;
+  int getHPMax() const;
+  bool isAlive() const;
+  int getStamina() const;
+  int getDamageMin() const;
+  int getDamageMax() const;
+  int getDamage() const;
+  int getDefense() const;
+  int getAddedDefense() const;
+  int getAccuracy() const;
+  int getGold() const;
+  unsigned int getInventorySize() const;
 
   // Modifier
-  void setDistTravelled(const int& distance);
+  void setDistTravelled(const int distance);
   void travel();
   void gainExp(const int exp);
   void gainGold(const int gold);

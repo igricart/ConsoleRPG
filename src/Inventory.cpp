@@ -38,13 +38,13 @@ Inventory& Inventory::operator=(Inventory&& other) noexcept
   return *this;
 }
 
-std::shared_ptr<Item>& Inventory::operator[](const int index)
+std::shared_ptr<Item>& Inventory::operator[](size_t index)
 {
   if (!item_vec_ptr_)
   {
     throw std::runtime_error("Non Initialized Pointer");
   }
-  if (index < 0 || index >= item_vec_ptr_->size())
+  if (index >= item_vec_ptr_->size())
   {
     throw("BAD INDEX!");
   }
@@ -65,13 +65,13 @@ void Inventory::addItem(const Item& item)
   //            std::bind(&Inventory::compareItems, this, std::placeholders::_1, std::placeholders::_2));
 }
 
-void Inventory::removeItem(int index)
+void Inventory::removeItem(size_t index)
 {
   if (!item_vec_ptr_)
   {
     throw std::runtime_error("Non Initialized Pointer");
   }
-  if (index < 0 || index >= item_vec_ptr_->size())
+  if (index >= item_vec_ptr_->size())
   {
     throw("BAD INDEX!");
   }
@@ -87,7 +87,7 @@ bool Inventory::compareItems(const std::shared_ptr<Item>& a, const std::shared_p
   return false;
 }
 
-int Inventory::size() const
+size_t Inventory::size() const
 {
   if (!item_vec_ptr_)
   {

@@ -18,9 +18,9 @@ public:
   Inventory(Inventory&& other) noexcept;
   Inventory& operator=(Inventory&& other) noexcept;
 
-  int size() const;
-  std::shared_ptr<Item>& operator[](const int index);
+  size_t size() const;
+  std::shared_ptr<Item>& operator[](size_t index);
   void addItem(const Item& item);
-  void removeItem(int index);
+  void removeItem(size_t index);
   void debugPrint() const;
 };

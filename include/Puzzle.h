@@ -27,10 +27,7 @@ public:
   virtual ~Puzzle();
   std::string getAsString() const;
 
-  const int getCorrectAns() const
-  {
-    return correct_answer_;
-  }
+  int getCorrectAns() const;
 };
 
 // TODO: Make unique_string persistent (it should be recorded somewhere)
@@ -79,7 +76,7 @@ public:
   // Display the puzzle
   std::string getAsString() const;
 
-  const int getCorrectAns() const;
+  int getCorrectAns() const;
 
   static void example()
   {
