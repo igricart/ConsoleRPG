@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt update && install -y spdlog
+      run: sudo apt update && sudo apt install -y libspdlog-dev libboost-filesystem-dev
     - name: Build
       run: |
         mkdir build
         cd build
-        cmake ..
+        cmake .. -DCMAKE_BUILD_TYPE=Release
         make
     - name: Run tests
-      run: ./runTests
+      run: ./build/runTests
