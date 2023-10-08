@@ -6,7 +6,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <cstdlib>
 
-int main()
+void setupLogger()
 {
   // 1. Create a colorized stdout sink
   auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -24,11 +24,16 @@ int main()
   // 5. Register the logger as the global logger
   spdlog::set_default_logger(logger);
   spdlog::set_level(spdlog::level::debug);  // Set global log level to debug
+}
+
+int main()
+{
+  setupLogger();
 
 #ifdef NDEBUG
-  spdlog::info("Release build");
+  spdlog::debug("Release build");
 #else
-  spdlog::info("Debug build");
+  spdlog::debug("Debug build");
 #endif
 
   srand(time(NULL));
