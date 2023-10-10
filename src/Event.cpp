@@ -14,8 +14,8 @@ Event::~Event()
 
 void Event::generateEvent(Character& character, std::vector<Enemy>& enemies)
 {
-  // int i = rand() % Event::nrOfEvents;
-  switch (2)
+  int i = rand() % Event::nrOfEvents;
+  switch (i)
   {
     case 0:
       // Enemy encounter

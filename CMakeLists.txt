@@ -17,12 +17,12 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 find_package(Threads REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
+find_package(nlohmann_json CONFIG REQUIRED)
+
 
 # Include directories
-include_directories(include)
 
 add_subdirectory(third_party/ChatGPT)
-include_directories(third_party)
 
 # Add the source files to the project
 set(SOURCES
@@ -49,7 +49,8 @@ add_executable(console_rpg
   src/main.cpp
   ${SOURCES})
 
-target_link_libraries(console_rpg PRIVATE ChatGPTDll spdlog::spdlog Boost::filesystem Threads::Threads)
+target_include_directories(console_rpg PRIVATE include third_party)
+target_link_libraries(console_rpg PRIVATE nlohmann_json::nlohmann_json ChatGPTDll spdlog::spdlog Boost::filesystem Threads::Threads)
 
 # Fetch GoogleTest using FetchContent
 include(FetchContent)
@@ -62,7 +63,9 @@ FetchContent_MakeAvailable(googletest)
 
 # Add test executable
 add_executable(runTests ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(runTests PRIVATE gtest gtest_main Threads::Threads ChatGPTDll spdlog::spdlog Boost::filesystem)
+target_include_directories(runTests PRIVATE include third_party)
+
+target_link_libraries(runTests PRIVATE nlohmann_json::nlohmann_json gtest gtest_main Threads::Threads ChatGPTDll spdlog::spdlog Boost::filesystem)
 
 # Enables testing via the 'make test' command
 enable_testing()
