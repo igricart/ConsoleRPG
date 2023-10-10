@@ -978,18 +978,3 @@ void Event::printShopMenu() const
 
   spdlog::info("Choice: ");
 }
-
-void Event::printShopMenu() const
-{
-  system("clear");
-  spdlog::info("= SHOP MENU =\n");
-
-  spdlog::info("Instructions:");
-  spdlog::info("- Choose an option by entering the corresponding number.");
-  spdlog::info("- Press 'Enter' to leave the shop.\n");
-
-  spdlog::info("1: Buy");
-  spdlog::info("2: Sell\n");
-
-  spdlog::info("Choice: ");
-}
