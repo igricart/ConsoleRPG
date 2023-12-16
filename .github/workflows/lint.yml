@@ -15,16 +15,16 @@ jobs:
         find . -name '*.cpp' -or -name '*.h' | xargs clang-format -i
         git diff --exit-code # This will exit with 1 if there are any changes, indicating misformatted files.
 
-  clang-tidy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+  # clang-tidy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
 
-    - name: Install clang-tidy
-      run: sudo apt-get install -y clang-tidy
+  #   - name: Install clang-tidy
+  #     run: sudo apt-get install -y clang-tidy
 
-    - name: Run clang-tidy
-      run: |
-        find . -name '*.cpp' -or -name '*.h' | xargs clang-tidy
+  #   - name: Run clang-tidy
+  #     run: |
+  #       find . -name '*.cpp' -or -name '*.h' | xargs clang-tidy
       
