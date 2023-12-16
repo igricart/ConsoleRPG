@@ -1,6 +1,11 @@
 {
   "xml.downloadExternalResources.enabled": true,
   "ros.distro": "humble",
+  "C_Cpp.clang_formatStyle": "file",
+  "C_Cpp.clang_formatPath": "{workspaceFolder}/.clang-format",
+  "C_Cpp.clangTidy": true,
+  "C_Cpp.clangTidyPath": "{workspaceFolder}/.clang-tidy",
+  "C_Cpp.clangTidyChecks": "-*,modernize-*,readability-*",
   "files.associations": {
     "cmath": "cpp",
     "complex": "cpp",
