@@ -285,6 +285,13 @@ void Game::characterMenu()
     std::cin.ignore(100, '\n');
     std::cout << "\n";
 
+    // Handle case where inventory is not initialized or empty
+    if (characters_[active_character_].getInventorySize() == 0)
+    {
+      spdlog::debug("Empty inventory, returning to previous screen");
+      choice_ = 0;
+    }
+
     switch (choice_)
     {
       case 1:
