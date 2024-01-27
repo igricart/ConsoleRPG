@@ -91,7 +91,7 @@ size_t Inventory::size() const
 {
   if (!item_vec_ptr_)
   {
-    std::cout << "Inventory not initialized" << std::endl;
+    spdlog::debug("Inventory not initialized");
     return 0;
   }
   return item_vec_ptr_->size();
@@ -101,7 +101,7 @@ void Inventory::debugPrint() const
 {
   if (!item_vec_ptr_)
   {
-    std::cout << "Inventory not initialized" << std::endl;
+    spdlog::debug("Inventory not initialized");
     return;
   }
 

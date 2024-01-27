@@ -170,17 +170,19 @@ void Event::shopEncouter(Character& character)
 
     switch (*choice)
     {
-      case 0:  // Buy
+      case 1:  // Buy
         system("clear");
 
         std::cout << "= BUY MENU ="
                   << "\n\n";
 
-        std::cout << " - Gold: " << character.getGold() << "\n\n";
-
         printShop(merchantInv);
 
         std::cout << "Gold: " << character.getGold() << "\n";
+
+        spdlog::info("\n= Current Inventory =\n");
+        spdlog::info("{}", character.getInvAsString(true));
+
         std::cout << "Choice of item (Enter to cancel): ";
 
         buy_option = enterOrInput(merchantInv.size());
@@ -202,7 +204,7 @@ void Event::shopEncouter(Character& character)
         }
         break;
 
-      case 1:  // Sell
+      case 2:  // Sell
 
         std::cout << character.getInvAsString(true) << "\n";
 
@@ -279,6 +281,10 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
   int combatRollPlayer = 0;
   int combatRollEnemy = 0;
 
+  spdlog::debug("Enemies initialized: {}", enemies.size());
+  spdlog::debug("Is it you the first to play? Answer: {}", playerTurn);
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+
   // Battle loop
   while (true)
   {
@@ -298,6 +304,18 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
                 << "\n\n";
       std::cout << "HP: " << character.getHP() << " / " << character.getHPMax() << "\n\n";
 
+      spdlog::info("Current enemies");
+      // TODO: Find a way to not run this loop in other parts of the code
+      for (size_t i = 0; i < enemies.size(); i++)
+      {
+        std::cout << "Level: " << enemies[i].getLevel() << " - "
+                  << "HP: " << enemies[i].getHp() << "/" << enemies[i].getHpMax() << " - "
+                  << "Defense: " << enemies[i].getDefense() << " - "
+                  << "Accuracy: " << enemies[i].getAccuracy() << " - "
+                  << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << "\n";
+      }
+
+      spdlog::info("\nOptions");
       std::cout << "0: Escape"
                 << "\n";
       std::cout << "1: Attack"
@@ -364,10 +382,17 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
                       << "Damage: " << enemies[i].getDamageMin() << " - " << enemies[i].getDamageMax() << "\n";
           }
 
-          std::cout << "\n";
-          std::cout << "Choice: ";
+          if (enemies.size() == 1)
+          {
+            choice = 0;
+          }
+          else
+          {
+            std::cout << "\n";
+            std::cout << "Choice: ";
 
-          std::cin >> choice;
+            std::cin >> choice;
+          }
 
           while (std::cin.fail() || choice >= enemies.size())
           {
@@ -381,8 +406,8 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
             std::cout << "Choice: ";
             std::cin >> choice;
           }
-
           std::cin.ignore(100, '\n');
+
           std::cout << "\n";
 
           // Attack roll
@@ -498,16 +523,12 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
 
       // End turn
       playerTurn = false;
+      std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     else if (!playerTurn)
     {
       std::cout << "= ENEMY TURN ="
                 << "\n";
-
-      std::cout << "Continue..."
-                << "\n\n";
-      std::cin.get();
-      system("clear");
 
       // Enemy attack
       for (size_t i = 0; i < enemies.size(); i++)
@@ -559,6 +580,7 @@ void Event::enemyEncouter(Character& character, std::vector<Enemy>& enemies)
 
       // End turn
       playerTurn = true;
+      std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 
     // Conditions

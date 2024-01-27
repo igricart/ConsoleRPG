@@ -15,7 +15,7 @@ OpenAI::ChatGPT::ChatGPT(const std::string& token)
 OpenAI::ChatCompletion OpenAI::ChatGPT::askChatGPT(const std::string& role, const std::string& content)
 {
   auto json = "{\n"
-              "  \"model\": \"gpt-3.5-turbo\",\n"
+              "  \"model\": \"gpt-4\",\n"
               "  \"messages\": [{\"role\": \"" +
               role + "\", \"content\": \"" + content +
               "\"}]\n"
